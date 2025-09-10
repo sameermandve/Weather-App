@@ -50,7 +50,7 @@ function WeatherAppPage() {
 
     const backgroundStyle = isImageLoading ?
         {
-            backgroundImage: "bg-gradient-to-br from-slate-900 to-slate-800"
+            backgroundImage: `linear-gradient(to bottom right, #0f172a, #1e293b)`
         } :
         {
             backgroundImage: `url(${bgImage})`
