@@ -11,7 +11,17 @@ function WeatherAppPage() {
 
     const [city, setCity] = useState("");
     const [weatherData, setWeatherData] = useState({});
-    const LazyComponent = lazy(() => import("../components/CityContainer.jsx"))
+    const LazyComponent = lazy(() => import("../components/CityContainer.jsx"));
+    const [isImageLoading, setIsImageLoading] = useState(true);
+
+    useEffect(() => {
+        const image = new Image();
+        image.src = bgImage;
+
+        image.onload = () => {
+            setIsImageLoading(false);
+        }
+    }, [bgImage]);
 
     const fetchData = async () => {
         const queryCity = city || "Barcelona";
@@ -38,11 +48,19 @@ function WeatherAppPage() {
         fetchData();
     }, []);
 
+    const backgroundStyle = isImageLoading ?
+        {
+            backgroundImage: "bg-gradient-to-br from-slate-900 to-slate-800"
+        } :
+        {
+            backgroundImage: `url(${bgImage})`
+        };
+
     //  bg-gradient-to-br from-slate-900 to-slate-800
     return (
         <div
-            style={{ backgroundImage: `url(${bgImage})` }}
-            className="min-h-screen bg-center bg-no-repeat bg-cover bg-fixed text-white font-[Inter]"
+            style={backgroundStyle}
+            className="min-h-screen bg-center bg-no-repeat bg-cover bg-fixed text-white font-[Inter] transition-[background-image] duration-1000 ease-in-out"
         >
             <div className="flex items-center justify-center">
                 <div className="w-full max-w-6xl p-6">
