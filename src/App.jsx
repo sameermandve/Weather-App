@@ -1,6 +1,7 @@
 // import WeatherAppPage from './pages/WeatherAppPage';
 import { Loader } from 'lucide-react';
 import { lazy, Suspense } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
 
@@ -17,6 +18,12 @@ function App() {
             >
                 <LazyComponent />
             </Suspense>
+
+            <Toaster
+                toastOptions={{
+                    duration: 2000,
+                }}
+            />
         </>
     );
 }

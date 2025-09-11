@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { CircleGauge, Droplets, Eye, SearchIcon, Sun, ThermometerSun, Wind } from "lucide-react";
+import toast from "react-hot-toast";
 import { extractDate } from "../utils/ExtractDate.utils.js";
 
 import Forecast from "../components/Forecast";
@@ -39,7 +40,8 @@ function WeatherAppPage() {
             const res = await fetch(url);
 
             if (!res.ok) {
-                throw new Error(`http Error: ${res.status}`)
+                toast.error("Enter a valid city");
+                throw new Error(`http Error: ${res.status}`);
             }
 
             const data = await res.json();
