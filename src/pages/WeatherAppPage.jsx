@@ -75,9 +75,9 @@ function WeatherAppPage() {
         <div className="relative min-h-screen isolate">
             <div
                 style={backgroundStyle}
-                className="fixed inset-0 bg-center bg-no-repeat bg-cover text-white font-[Inter] transition-[background-image] duration-1000 ease-in-out"
-            >
-                <div className="flex items-center justify-center">
+                className="fixed inset-0 -z-10 bg-center bg-no-repeat bg-cover transition-[background-image] duration-1000 ease-in-out"
+            />
+                <div className="flex items-center justify-center text-white font-[Inter]">
                     <div className="w-full max-w-6xl p-6">
                         {/* Main Container */}
                         <div className="border-2 border-white/50 rounded-2xl flex flex-col lg:flex-row backdrop-blur-lg">
@@ -227,7 +227,6 @@ function WeatherAppPage() {
                         {/* Main Container end */}
                     </div>
                 </div>
-            </div>
         </div>
     );
 }
