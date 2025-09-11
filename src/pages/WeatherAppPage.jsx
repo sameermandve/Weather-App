@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { CircleGauge, Droplets, Eye, Loader, Loader2, SearchIcon, Sun, ThermometerSun, Wind } from "lucide-react";
+import { CircleGauge, Droplets, Eye, SearchIcon, Sun, ThermometerSun, Wind } from "lucide-react";
 import { extractDate } from "../utils/ExtractDate.utils.js";
 
 import Forecast from "../components/Forecast";
