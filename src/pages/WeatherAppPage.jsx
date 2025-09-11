@@ -131,7 +131,7 @@ function WeatherAppPage() {
                                 <h1 className="font-bold text-2xl tracking-wide sm:tracking-wider text-white/80 pt-2">Today's Highlights</h1>
 
                                 {/* Highlights grid */}
-                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
                                     {/* 1 */}
                                     <WeatherHighlights
                                         title="Feels Like"
