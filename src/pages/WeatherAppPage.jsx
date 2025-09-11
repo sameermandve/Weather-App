@@ -1,6 +1,6 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { CircleGauge, Droplets, Eye, SearchIcon, Sun, ThermometerSun, Wind } from "lucide-react";
+import { CircleGauge, Droplets, Eye, Loader, Loader2, SearchIcon, Sun, ThermometerSun, Wind } from "lucide-react";
 import { extractDate } from "../utils/ExtractDate.utils.js";
 
 import Forecast from "../components/Forecast";
@@ -11,7 +11,6 @@ function WeatherAppPage() {
 
     const [city, setCity] = useState("");
     const [weatherData, setWeatherData] = useState({});
-    const LazyComponent = lazy(() => import("../components/CityContainer.jsx"));
     const [isImageLoading, setIsImageLoading] = useState(true);
 
     useEffect(() => {
@@ -22,6 +21,14 @@ function WeatherAppPage() {
             setIsImageLoading(false);
         }
     }, [bgImage]);
+
+    useEffect(() => {
+        document.addEventListener("keydown", handleKeyPress);
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyPress);
+        }
+    }, [city]);
 
     const fetchData = async () => {
         const queryCity = city || "Barcelona";
@@ -38,6 +45,7 @@ function WeatherAppPage() {
             const data = await res.json();
 
             setWeatherData(w => ({ ...data }));
+            setCity("");
 
         } catch (error) {
             console.error("Error while fetching data: \n", error);
@@ -47,6 +55,12 @@ function WeatherAppPage() {
     useEffect(() => {
         fetchData();
     }, []);
+
+    const handleKeyPress = (event) => {
+        if (event.key === "Enter") {
+            fetchData();
+        }
+    };
 
     const backgroundStyle = isImageLoading ?
         {
@@ -88,23 +102,15 @@ function WeatherAppPage() {
 
                             {/* Data Field */}
                             <div className="space-y-10 lg:pl-5">
-                                <Suspense fallback={<p className="font-medium text-lg text-white/90">Loading...</p>}>
-                                    <LazyComponent
-                                        title={weatherData.location?.name}
-                                        para={extractDate(weatherData.location?.localtime)}
-                                        titleStyle="font-bold text-5xl lg:text-4xl text-white tracking-tight"
-                                        paraStyle="font-semibold text-white/70"
-                                    />
-                                </Suspense>
-                                {/* <div className="flex flex-col gap-1 text-center lg:text-left">
+                                <div className="flex flex-col gap-1 text-center lg:text-left">
                                     <h1 className="font-bold text-5xl lg:text-4xl text-white tracking-tight">{weatherData.location?.name}</h1>
-                                    <p className="font-medium text-white/90">{ extractDate(weatherData.location?.localtime) }</p>
-                                </div> */}
+                                    <p className="font-medium text-white/90">{extractDate(weatherData.location?.localtime)}</p>
+                                </div>
 
                                 <div className="p-6 flex justify-center lg:justify-start">
                                     <img
                                         src={weatherData.current?.condition?.icon}
-                                        alt="Image"
+                                        alt="Weather Icon"
                                         className="size-32 max-w-40 max-h-40"
                                     />
                                 </div>
